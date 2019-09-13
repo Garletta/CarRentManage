@@ -1,5 +1,6 @@
 package CCZU;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Welcome {
@@ -70,10 +71,16 @@ public class Welcome {
         int days = sc.nextInt();
 
         //在车库中寻找满足条件的可租借车辆
-        for(int i = 0;i < garage.cczuBuss.size();i++) {
-            if(carChoose.getType().equals(garage.cczuBuss.get(i).getType()) && carChoose.getBrand().equals(garage.cczuBuss.get(i).getBrand()) && carChoose.getSeatNum() == garage.cczuBuss.get(i).getSeatNum()) {
-                System.out.println("分配给你的车牌号是：" + garage.cczuBuss.get(i).getListen());
-                System.out.println("您所需要支付的租金是：" + garage.cczuBuss.get(i).rent(days) + "元");
+        for(int i = 0;i < garage.getCczuCars().size();i++) {
+
+            if(carChoose.getType().equals(garage.getCczuCars().get(i).getType()) && carChoose.getBrand().equals(garage.getCczuCars().get(i).getBrand())) {
+                if(garage.getCczuCars().get(i) instanceof CCZUBus) {
+                    if(carChoose.getSeatNum() != ((CCZUBus) garage.getCczuCars().get(i)).getSeatNum()) {
+                        continue;
+                    }
+                }
+                System.out.println("分配给你的车牌号是：" + garage.getCczuCars().get(i).getListen());
+                System.out.println("您所需要支付的租金是：" + garage.getCczuCars().get(i).rent(days) + "元");
                 System.out.print("是否确认订单？(Y/N)");
                 String comfire = sc.next();
                 if(comfire.equals("Y") || comfire.equals("y")) {
